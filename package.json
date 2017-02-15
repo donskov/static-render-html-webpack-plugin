@@ -1,6 +1,6 @@
 {
   "name": "static-render-html-webpack-plugin",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Simplifies creation of HTML static files using webpack",
   "main": "dist/index.js",
   "scripts": {
