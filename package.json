@@ -1,0 +1,56 @@
+{
+  "name": "static-render-html-webpack-plugin",
+  "version": "1.0.4",
+  "description": "Simplifies creation of HTML static files using webpack",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist",
+    "test": "mocha test/index.js --compilers js:babel-register",
+    "prebuild": "rimraf dist",
+    "test:watch": "npm t -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donskov/static-render-html-webpack-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "react",
+    "static",
+    "html",
+    "render"
+  ],
+  "author": "Donskov D. <donskovdmitriyv@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/donskov/static-render-html-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/donskov/static-render-html-webpack-plugin",
+  "dependencies": {
+    "babel-register": "^6.22.0",
+    "chai-spies": "^0.7.1",
+    "chalk": "^1.1.3",
+    "fs-extra": "^2.0.0",
+    "pretty": "^1.0.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "requirefresh": "^2.1.0",
+    "webpack": "^1.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2",
+      "react"
+    ]
+  }
+}
