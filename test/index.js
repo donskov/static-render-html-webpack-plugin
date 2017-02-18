@@ -65,20 +65,18 @@ describe('Static Render Html Webpack Plugin', () => {
     testWebpackCompile(config, 'Error', null, done, [prettyError.fileExtension(entry, RELATIVE_DIR)]);
   });
 
-  it('should add error replace html to compilation', (done) => {
+  it('should add error not valid ReactElement to compilation', (done) => {
     const entry = path.join(__dirname, './fixtures/some_function.js');
     config.plugins = [new StaticRenderHtmlWebpackPlugin({
       entry,
-      pretty: true,
     })];
-    testWebpackCompile(config, 'Error', null, done, [prettyError.errorWrapper('TypeError: this.input.replace is not a function')]);
+    testWebpackCompile(config, 'Error', null, done, [prettyError.errorWrapper('Invariant Violation: renderToStaticMarkup(): You must pass a valid ReactElement.')]);
   });
 
   it('should create main.html in output dir', (done) => {
     const entry = path.join(__dirname, './fixtures/main.jsx');
     config.plugins = [new StaticRenderHtmlWebpackPlugin({
       entry,
-      pretty: true,
     })];
 
     const expectHtmlNames = [
@@ -94,7 +92,6 @@ describe('Static Render Html Webpack Plugin', () => {
     const entry = path.join(__dirname, './fixtures/multiple_html.jsx');
     config.plugins = [new StaticRenderHtmlWebpackPlugin({
       entry,
-      pretty: true,
     })];
 
     const expectHtmlNames = [

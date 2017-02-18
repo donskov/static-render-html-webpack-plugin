@@ -1,5 +1,4 @@
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import HtmlWrapper from './html_wrapper.jsx';
 
 const Main = () => (
@@ -26,26 +25,26 @@ const Contacts = () => (
   </div>
 );
 
-const pageMain = (
+const PageMain = () => (
   <HtmlWrapper>
     <Main />
   </HtmlWrapper>
 );
 
-const pageAbout = (
+const PageAbout = () => (
   <HtmlWrapper>
     <About />
   </HtmlWrapper>
 );
 
-const pageContacts = (
+const PageContacts = () => (
   <HtmlWrapper>
     <Contacts />
   </HtmlWrapper>
 );
 
 export default {
-  main: renderToStaticMarkup(pageMain),
-  about: renderToStaticMarkup(pageAbout),
-  contacts: renderToStaticMarkup(pageContacts),
+  main: <PageMain />,
+  about: <PageAbout />,
+  contacts: <PageContacts />,
 };

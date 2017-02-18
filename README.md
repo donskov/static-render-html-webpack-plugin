@@ -37,7 +37,6 @@ var webpackConfig = {
 ```javascript
 // index.jsx
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 
 const IndexPage = (props) => (
   <html lang="en">
@@ -58,7 +57,7 @@ const IndexPage = (props) => (
 );
 
 export default {
-  index: renderToStaticMarkup(IndexPage),
+  index: <IndexPage />,
 };
 ```
 

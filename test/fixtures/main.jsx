@@ -1,5 +1,4 @@
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import HtmlWrapper from './html_wrapper.jsx';
 
 const Main = () => (
@@ -10,12 +9,12 @@ const Main = () => (
   </div>
 );
 
-const pageMain = (
+const PageMain = () => (
   <HtmlWrapper>
     <Main />
   </HtmlWrapper>
 );
 
 export default {
-  main: renderToStaticMarkup(pageMain),
+  main: <PageMain />,
 };
