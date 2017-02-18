@@ -1,6 +1,9 @@
 Static Render HTML Webpack Plugin
 =================================
-[![npm version](https://badge.fury.io/js/static-render-html-webpack-plugin.svg)](https://badge.fury.io/js/static-render-html-webpack-plugin) [![Build status](https://travis-ci.org/donskov/static-render-html-webpack-plugin.svg)](https://travis-ci.org/donskov/static-render-html-webpack-plugin) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/donskov/static-render-html-webpack-plugin/blob/master/LICENSE)
+[![npm version](https://badge.fury.io/js/static-render-html-webpack-plugin.svg)](https://badge.fury.io/js/static-render-html-webpack-plugin)
+[![Build status](https://travis-ci.org/donskov/static-render-html-webpack-plugin.svg)](https://travis-ci.org/donskov/static-render-html-webpack-plugin)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/donskov/static-render-html-webpack-plugin/blob/master/LICENSE)
+<br/>
 [![NPM](https://nodei.co/npm/static-render-html-webpack-plugin.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/static-render-html-webpack-plugin/)
 
 This is a webpack plugin that simplifies creation of HTML static files using webpack. It will be useful if you are creating a PWA and you need as quickly as possible to show the user first paint.
@@ -34,7 +37,6 @@ var webpackConfig = {
 ```javascript
 // index.jsx
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 
 const IndexPage = (props) => (
   <html lang="en">
@@ -55,7 +57,7 @@ const IndexPage = (props) => (
 );
 
 export default {
-  index: renderToStaticMarkup(IndexPage),
+  index: <IndexPage />,
 };
 ```
 
@@ -71,7 +73,7 @@ This will generate a file `dist/index.html` containing the following:
   <body>
     <div id=""root>
       <span>
-         Main page
+         Index page
       </span>
     </div>
   </body>
@@ -80,4 +82,4 @@ This will generate a file `dist/index.html` containing the following:
 
 # License
 
-This project is licensed under [MIT](https://github.com/donskov/static-render-html-webpack-plugin/blob/master/LICENSE).
+This project is licensed under [MIT](https://github.com/donskov/static-render-html-webpack-plugin/blob/master/LICENSE.md).

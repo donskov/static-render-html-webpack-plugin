@@ -4,9 +4,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _pretty = require('pretty');
+var _jsBeautify = require('js-beautify');
 
-var _pretty2 = _interopRequireDefault(_pretty);
+var _jsBeautify2 = _interopRequireDefault(_jsBeautify);
+
+var _server = require('react-dom/server');
 
 var _requirefresh = require('requirefresh');
 
@@ -20,6 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var beautifyHtml = _jsBeautify2.default.html;
+
 require('babel-register')({
   extensions: ['.js', '.jsx']
 });
@@ -30,7 +34,7 @@ var StaticRenderHtmlWebpackPlugin = function () {
 
     this.options = Object.assign({}, {
       entry: '',
-      pretty: false
+      pretty: true
     }, options);
   }
 
@@ -40,6 +44,7 @@ var StaticRenderHtmlWebpackPlugin = function () {
       var _this = this;
 
       var entry = this.options.entry;
+      var FILE_SUPPORT_REGEXP = /.(js|jsx)$/g;
 
       compiler.plugin('emit', function (compilation, callback) {
         var result = '';
@@ -49,7 +54,6 @@ var StaticRenderHtmlWebpackPlugin = function () {
           return callback();
         }
 
-        var FILE_SUPPORT_REGEXP = /.(js|jsx)$/g;
         var fileExtension = entry.split('.');
         fileExtension = '.' + fileExtension[fileExtension.length - 1];
 
@@ -72,17 +76,27 @@ var StaticRenderHtmlWebpackPlugin = function () {
         }
 
         Object.keys(result).map(function (key) {
+          var renderedStaticMarkup = '';
+          try {
+            renderedStaticMarkup = (0, _server.renderToStaticMarkup)(result[key]);
+          } catch (error) {
+            renderedStaticMarkup = 'Error: \'' + error + '\'\nFile: \'' + entry + '\'\nProperty: \'' + key + '\'';
+            compilation.errors.push(_errors2.default.errorWrapper(error));
+          }
+
           var file = {
             name: key + '.html',
-            source: result[key],
-            size: result[key].length
+            source: renderedStaticMarkup,
+            size: renderedStaticMarkup.length
           };
 
           var html = file.source;
 
           if (_this.options.pretty) {
             try {
-              html = (0, _pretty2.default)(html);
+              html = beautifyHtml(html, {
+                indent_size: 2
+              });
             } catch (error) {
               html = 'Error: \'' + error + '\'\nFile: \'' + entry + '\'\nProperty: \'' + key + '\'';
               compilation.errors.push(_errors2.default.errorWrapper(error));
