@@ -77,6 +77,7 @@ describe('Static Render Html Webpack Plugin', () => {
     const entry = path.join(__dirname, './fixtures/main.jsx');
     config.plugins = [new StaticRenderHtmlWebpackPlugin({
       entry,
+      pretty: true,
     })];
 
     const expectHtmlNames = [
@@ -92,6 +93,7 @@ describe('Static Render Html Webpack Plugin', () => {
     const entry = path.join(__dirname, './fixtures/multiple_html.jsx');
     config.plugins = [new StaticRenderHtmlWebpackPlugin({
       entry,
+      pretty: true,
     })];
 
     const expectHtmlNames = [
