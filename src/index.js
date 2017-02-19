@@ -13,13 +13,12 @@ class StaticRenderHtmlWebpackPlugin {
   constructor(options) {
     this.options = Object.assign({}, {
       entry: '',
-      pretty: true,
+      pretty: false,
     }, options);
   }
 
   apply(compiler) {
     const entry = this.options.entry;
-    const FILE_SUPPORT_REGEXP = /.(js|jsx)$/g;
 
     compiler.plugin('emit', (compilation, callback) => {
       let result = '';
@@ -32,6 +31,7 @@ class StaticRenderHtmlWebpackPlugin {
       let fileExtension = entry.split('.');
       fileExtension = `.${fileExtension[fileExtension.length - 1]}`;
 
+      const FILE_SUPPORT_REGEXP = /.(js|jsx)$/g;
       if (!FILE_SUPPORT_REGEXP.test(fileExtension)) {
         compilation.errors.push(prettyError.fileExtension(entry, compiler.context));
         return callback();

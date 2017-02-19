@@ -1,5 +1,4 @@
 test
 *.yml
-src
 .eslintrc
 .gitignore
