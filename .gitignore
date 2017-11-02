@@ -3,3 +3,7 @@ node_modules
 .DS_Store
 *.log
 .idea
+example/
+src/test.js
+dist
+package-lock.json
