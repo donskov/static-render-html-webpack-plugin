@@ -53,7 +53,7 @@ class StaticRenderHtmlWebpackPlugin {
       Object.keys(result).map((key) => {
         let renderedStaticMarkup = '';
         try {
-          renderedStaticMarkup = renderToStaticMarkup(result[key]);
+          renderedStaticMarkup = `<!DOCTYPE html>${renderToStaticMarkup(result[key])}`;
         } catch (error) {
           renderedStaticMarkup = `Error: '${error}'\nFile: '${entry}'\nProperty: '${key}'`;
           compilation.errors.push(prettyError.errorWrapper(error));
