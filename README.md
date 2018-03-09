@@ -63,6 +63,7 @@ export default {
 
 This will generate a file `dist/index.html` containing the following:
 ```html
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charSet="utf-8" />
