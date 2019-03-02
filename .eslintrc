@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": false,
+      "generators": true,
+      "modules": true,
+      "objectLiteralDuplicateProperties": true
+    }
+  },
+  "extends": "airbnb",
+  "rules": {}
+}
