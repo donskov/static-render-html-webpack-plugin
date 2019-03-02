@@ -1,12 +1,12 @@
-import beautify from "js-beautify";
-import { renderToStaticMarkup } from "react-dom/server";
-import requirefresh from "requirefresh";
-import prettyError from "./utils/errors";
+import beautify from 'js-beautify';
+import { renderToStaticMarkup } from 'react-dom/server';
+import requirefresh from 'requirefresh';
+import prettyError from './errors';
 
 const beautifyHtml = beautify.html;
 
-require("@babel/register")({
-  extensions: [".js", ".jsx"]
+require('@babel/register')({
+  extensions: ['.js', '.jsx'],
 });
 
 class StaticRenderHtmlWebpackPlugin {
@@ -14,33 +14,33 @@ class StaticRenderHtmlWebpackPlugin {
     this.options = Object.assign(
       {},
       {
-        entry: "",
-        pretty: false
+        entry: '',
+        pretty: false,
       },
-      options
+      options,
     );
   }
 
   apply(compiler) {
-    const entry = this.options.entry;
+    const { entry } = this.options;
 
     compiler.hooks.emit.tapAsync(
-      { name: "JSX to HTML Static Render" },
+      { name: 'JSX to HTML Static Render' },
       (compilation, callback) => {
-        let result = "";
+        let result = '';
 
         if (!entry) {
           compilation.errors.push(prettyError.emptyEntry(compiler.context));
           return callback();
         }
 
-        let fileExtension = entry.split(".");
+        let fileExtension = entry.split('.');
         fileExtension = `.${fileExtension[fileExtension.length - 1]}`;
 
         const FILE_SUPPORT_REGEXP = /.(js|jsx)$/g;
         if (!FILE_SUPPORT_REGEXP.test(fileExtension)) {
           compilation.errors.push(
-            prettyError.fileExtension(entry, compiler.context)
+            prettyError.fileExtension(entry, compiler.context),
           );
           return callback();
         }
@@ -54,15 +54,16 @@ class StaticRenderHtmlWebpackPlugin {
 
         compilation.fileDependencies.add(entry);
 
-        if (result.default && typeof result.default === "object") {
+        if (result.default && typeof result.default === 'object') {
           result = result.default;
         }
 
-        Object.keys(result).map(key => {
-          let renderedStaticMarkup = "";
+        Object.keys(result).forEach((key) => {
+          let renderedStaticMarkup = '';
+
           try {
             renderedStaticMarkup = `<!DOCTYPE html>${renderToStaticMarkup(
-              result[key]
+              result[key],
             )}`;
           } catch (error) {
             renderedStaticMarkup = `Error: '${error}'\nFile: '${entry}'\nProperty: '${key}'`;
@@ -72,7 +73,7 @@ class StaticRenderHtmlWebpackPlugin {
           const file = {
             name: `${key}.html`,
             source: renderedStaticMarkup,
-            size: renderedStaticMarkup.length
+            size: renderedStaticMarkup.length,
           };
 
           let html = file.source;
@@ -80,7 +81,7 @@ class StaticRenderHtmlWebpackPlugin {
           if (this.options.pretty) {
             try {
               html = beautifyHtml(html, {
-                indent_size: 2
+                indent_size: 2,
               });
             } catch (error) {
               html = `Error: '${error}'\nFile: '${entry}'\nProperty: '${key}'`;
@@ -88,13 +89,15 @@ class StaticRenderHtmlWebpackPlugin {
             }
           }
 
+          // eslint-disable-next-line
           compilation.assets[file.name] = {
             source: () => html,
-            size: () => file.size
+            size: () => file.size,
           };
         });
-        callback();
-      }
+
+        return callback();
+      },
     );
   }
 }

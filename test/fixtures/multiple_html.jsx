@@ -1,5 +1,5 @@
 import React from 'react';
-import HtmlWrapper from './html_wrapper.jsx';
+import HtmlWrapper from './html_wrapper';
 
 const Main = () => (
   <div className="main">
