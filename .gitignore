@@ -1,9 +1,7 @@
 node_modules
-.eslintrc
 .DS_Store
 *.log
 .idea
-example/
-src/test.js
 dist
+dist_test
 package-lock.json
