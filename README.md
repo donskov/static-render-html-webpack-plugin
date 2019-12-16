@@ -49,7 +49,7 @@ const IndexPage = (props) => (
     <body>
       <div id="root">
         <span>
-	        Index page
+          Index page
         </span>
       </div>
     </body>
