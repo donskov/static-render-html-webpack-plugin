@@ -12,7 +12,7 @@ Installation
 ------------
 Install the plugin with npm:
 ```shell
-$ npm install static-render-html-webpack-plugin --save-dev
+$ npm install static-render-html-webpack-plugin
 ```
 
 Basic Usage
@@ -24,13 +24,13 @@ var webpackConfig = {
   entry: 'index.js',
   output: {
     path: 'dist',
-    filename: 'main.js'
+    filename: 'main.js',
   },
   plugins: [
     new StaticRenderHtmlWebpackPlugin({
-        entry: path.join(__dirname, './shells/index.jsx');
-    })
-  ]
+      entry: path.join(__dirname, './shells/index.jsx');
+    }),
+  ],
 };
 ```
 
@@ -47,7 +47,7 @@ const IndexPage = (props) => (
       </title>
     </head>
     <body>
-      <div id=""root>
+      <div id="root">
         <span>
 	        Index page
         </span>
@@ -61,7 +61,7 @@ export default {
 };
 ```
 
-This will generate a file `dist/index.html` containing the following:
+This will generate a file `webpack/output/path/index.html` containing the following:
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -72,9 +72,9 @@ This will generate a file `dist/index.html` containing the following:
     </title>
   </head>
   <body>
-    <div id=""root>
+    <div id="root">
       <span>
-         Index page
+        Index page
       </span>
     </div>
   </body>
